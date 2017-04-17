@@ -1,0 +1,16 @@
+<div class="player" [ngStyle]="backgroundStyle">
+  <div>
+    <button (click)="backward.emit()"><i class="fa fa-backward">backward</i></button>
+  </div>
+
+  <div>
+    <button><i class="fa fa-pause">pause</i></button>
+    <button><i class="fa fa-play">play</i></button>
+    <button><i class="fa fa-stop">stop</i></button>
+    <button><i class="fa fa-random">random</i></button>
+  </div>
+
+  <div>
+    <button><i class="fa fa-forward">forward</i></button>
+  </div>
+</div>
