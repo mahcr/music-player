@@ -3,7 +3,8 @@ import { PlayerService } from '../shared/';
 
 @Component({
   selector: 'player-main',
-  templateUrl: './player-main.component.html'
+  templateUrl: './player-main.component.html',
+  styleUrls: [ './player-main.component.scss' ]
 })
 export class PlayerMainComponent implements OnInit {
 
@@ -14,6 +15,7 @@ export class PlayerMainComponent implements OnInit {
   public tracks: any[] = [];
   public backgroundStyle;
   public filteredTracks: any[] = [];
+  paused = true;
 
   constructor(public playerService: PlayerService) { }
 
@@ -56,9 +58,6 @@ export class PlayerMainComponent implements OnInit {
 
   composeBackgroundStyle(url) {
     return {
-      width: '100%',
-      height: '600px',
-      backgroundSize:'cover',
       backgroundImage: `linear-gradient(
         rgba(0, 0, 0, 0.7),
         rgba(0, 0, 0, 0.7)
@@ -70,6 +69,22 @@ export class PlayerMainComponent implements OnInit {
     this.playerService.findTracks(payload).subscribe(tracks => {
       this.filteredTracks = tracks;
     });
+  }
+
+  handlePausePlay() {
+      if(this.playerService.audio.paused) {
+        this.paused = true;
+        this.playerService.audio.play();
+      } else {
+        this.paused = false;
+        this.playerService.audio.pause();
+      }
+  }
+
+  handleStop() {
+    this.playerService.audio.pause();
+    this.playerService.audio.currentTime = 0;
+    this.paused = false;
   }
 
 }
